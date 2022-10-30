@@ -69,6 +69,7 @@ https://formulae.brew.sh/formula/node ( for the Rust web server )
 ### How to use the package...
 
 To run: `sh run_server.sh`
+NOTE: This uses 'zsh' in its current setup. You might need to change this to `!/bin/bash`
 
 This runs `node src/index.js`
 
