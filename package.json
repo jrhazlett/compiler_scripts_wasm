@@ -1,0 +1,16 @@
+{
+  "name": "server_compiler_scripts",
+  "version": "1.0.0",
+  "author": "James Hazlett",
+  "description": "",
+  "main": "src/index.js",
+  "keywords": [],
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "pretty_printer_for_humans": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
