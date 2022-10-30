@@ -61,9 +61,9 @@ https://formulae.brew.sh/formula/go
 https://golangbot.com/webassembly-using-go/
 
 #### Rust
-https://rustwasm.github.io/book/game-of-life/hello-world.html
-https://formulae.brew.sh/formula/rust
-https://formulae.brew.sh/formula/wasm-pack ( for Rust )
+https://rustwasm.github.io/book/game-of-life/hello-world.html <br>
+https://formulae.brew.sh/formula/rust <br>
+https://formulae.brew.sh/formula/wasm-pack ( for Rust ) <br>
 https://formulae.brew.sh/formula/node ( for the Rust web server )
 
 ### How to use the package...
