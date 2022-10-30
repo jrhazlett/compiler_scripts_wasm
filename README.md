@@ -57,7 +57,7 @@ You should also familiarize yourself with the manual compilation processes.
 https://formulae.brew.sh/formula/node
 
 #### Go
-https://formulae.brew.sh/formula/go
+https://formulae.brew.sh/formula/go <br>
 https://golangbot.com/webassembly-using-go/
 
 #### Rust
