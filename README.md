@@ -13,6 +13,11 @@ quirks warranting the scripts.
 
 ## Updates
 
+### 03/02/2023 3rd update
+
+- Put file removal code in a protective wrapper which will end the app if it receives a path outside the home
+directory (this is unnecessary, but a little safer 'practice'-wise)
+
 ### 03/02/2023 2nd update
 
 - Package naming now replaces all '_' with '-'; in the earlier version it only did the first occurrence

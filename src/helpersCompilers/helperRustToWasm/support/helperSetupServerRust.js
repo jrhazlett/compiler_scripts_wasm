@@ -11,6 +11,7 @@ import helperFiles from "../../../helpersDisk/helpersFiles/helperFiles.js";
 import helperPaths from "../../../helpersDisk/helpersPaths/helperPaths.js";
 import helperPathsRust from "./helperPathsRust.js";
 import helperPrintingRust from "./helperPrintingRust.js";
+import helperRemovePaths from "../../../helpersDisk/helpersRemovePaths/helperRemovePaths.js";
 import helperShell from "../../../helpersShell/helperShell.js";
 //
 // Public
@@ -25,8 +26,9 @@ export default class helperSetupServerRust {
     static setupNodejsServerForTesting = ( argStringPathDirProject ) => {
 
         const stringPathDirServerWww = helperPathsRust.getStringPathDirServerWww( argStringPathDirProject )
-        //helperPathsRust.raiseErrorIfPathDirWwwAlreadyExists( stringPathDirServerWww )
-
+        //
+        // Setup the server if it doesn't already exist
+        //
         if ( !fs.existsSync( stringPathDirServerWww ) ) {
             helperPrintingRust.temporarilyPrintMessage(
                 "Setting up nodejs server for testing",
@@ -41,6 +43,9 @@ export default class helperSetupServerRust {
                     helperCopyOnDiskRust.copyAdditionalFiles( argStringPathDirProject )
                 },
             )
+        //
+        // Refresh *only* the wasm module if 'www' already exists
+        //
         } else {
             helperPrintingRust.temporarilyPrintMessage(
                 "Server already exists. Refreshing wasm package.",
@@ -49,9 +54,7 @@ export default class helperSetupServerRust {
                     if ( fs.existsSync( stringPathDirWasmPackageInNodeModules ) ) {
                         helperPrintingRust.temporarilyPrintMessage(
                             `Removing dir: ${stringPathDirWasmPackageInNodeModules}`,
-                            () => {
-                                rimraf.sync( stringPathDirWasmPackageInNodeModules )
-                            },
+                            () => { helperRemovePaths.removePath( stringPathDirWasmPackageInNodeModules ) },
                         )
                     }
                     const stringPathDirServerWww = helperPathsRust.getStringPathDirServerWww( argStringPathDirProject )
@@ -108,8 +111,6 @@ export default class helperSetupServerRust {
     static _getObjectWithDependenciesAdded = ( argObjectPackageJson, argStringPathDirProject ) => {
 
         const stringNameForWasmPackage = helperPathsRust.getStringNameForWasmPackage( argStringPathDirProject )
-
-
 
         return helperPrintingRust.temporarilyPrintMessage(
             `Adding dependency: ${stringNameForWasmPackage}`,
