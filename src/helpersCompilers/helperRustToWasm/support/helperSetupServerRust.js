@@ -1,4 +1,9 @@
 //
+// Libraries - downloaded
+//
+import fs from "fs"
+import { rimraf } from "rimraf";
+//
 // Libraries - custom
 //
 import helperCopyOnDiskRust from "./helperCopyOnDiskRust.js";
@@ -20,21 +25,43 @@ export default class helperSetupServerRust {
     static setupNodejsServerForTesting = ( argStringPathDirProject ) => {
 
         const stringPathDirServerWww = helperPathsRust.getStringPathDirServerWww( argStringPathDirProject )
-        helperPathsRust.raiseErrorIfPathDirWwwAlreadyExists( stringPathDirServerWww )
+        //helperPathsRust.raiseErrorIfPathDirWwwAlreadyExists( stringPathDirServerWww )
 
-        helperPrintingRust.temporarilyPrintMessage(
-            "Setting up nodejs server for testing",
-            () => {
-                helperPaths.temporarilySetCwd(
-                    argStringPathDirProject,
-                    () => {
-                        helperShell.runShellCmd( "npm init wasm-app www" )
-                        this._setupNodejsServerWithinDir( argStringPathDirProject, stringPathDirServerWww, )
-                    },
-                )
-                helperCopyOnDiskRust.copyAdditionalFiles( argStringPathDirProject )
-            },
-        )
+        if ( !fs.existsSync( stringPathDirServerWww ) ) {
+            helperPrintingRust.temporarilyPrintMessage(
+                "Setting up nodejs server for testing",
+                () => {
+                    helperPaths.temporarilySetCwd(
+                        argStringPathDirProject,
+                        () => {
+                            helperShell.runShellCmd( "npm init wasm-app www" )
+                            this._setupNodejsServerWithinDir( argStringPathDirProject, stringPathDirServerWww, )
+                        },
+                    )
+                    helperCopyOnDiskRust.copyAdditionalFiles( argStringPathDirProject )
+                },
+            )
+        } else {
+            helperPrintingRust.temporarilyPrintMessage(
+                "Server already exists. Refreshing wasm package.",
+                () => {
+                    const stringPathDirWasmPackageInNodeModules = helperPathsRust.getStringPathDirWasmPackageInNodeModules( argStringPathDirProject )
+                    if ( fs.existsSync( stringPathDirWasmPackageInNodeModules ) ) {
+                        helperPrintingRust.temporarilyPrintMessage(
+                            `Removing dir: ${stringPathDirWasmPackageInNodeModules}`,
+                            () => {
+                                rimraf.sync( stringPathDirWasmPackageInNodeModules )
+                            },
+                        )
+                    }
+                    const stringPathDirServerWww = helperPathsRust.getStringPathDirServerWww( argStringPathDirProject )
+                    helperPaths.temporarilySetCwd(
+                        stringPathDirServerWww,
+                        () => { helperShell.runShellCmd( "npm i" ) },
+                    )
+                }
+            )
+        }
     }
 
     /**
@@ -81,6 +108,9 @@ export default class helperSetupServerRust {
     static _getObjectWithDependenciesAdded = ( argObjectPackageJson, argStringPathDirProject ) => {
 
         const stringNameForWasmPackage = helperPathsRust.getStringNameForWasmPackage( argStringPathDirProject )
+
+
+
         return helperPrintingRust.temporarilyPrintMessage(
             `Adding dependency: ${stringNameForWasmPackage}`,
             () => {

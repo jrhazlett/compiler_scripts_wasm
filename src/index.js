@@ -30,8 +30,8 @@ class HelperTasks {
         const intLength = arrayOfStringPathsInDir.length
         while ( ++itemIndex < intLength ) {
             const itemStringPath = arrayOfStringPathsInDir[ itemIndex ]
-            if ( itemStringPath.endsWith( stringForIdentifyingProjectRust ) ) { return "rust" }
             if ( itemStringPath.endsWith( stringForIdentifyingProjectGo ) ) { return "go" }
+            if ( itemStringPath.endsWith( stringForIdentifyingProjectRust ) ) { return "rust" }
         }
         console.log( new Error( [
             "Project in target directory could not be identified.",

@@ -11,6 +11,21 @@ the same results.
 I'll add more features if practical, but the web assembly development process has unique
 quirks warranting the scripts.
 
+## Updates
+
+### 03/02/2023 2nd update
+
+- Package naming now replaces all '_' with '-'; in the earlier version it only did the first occurrence
+- Now refreshes the wasm package
+- Process: delete previous package (using rimraf) and then runs 'npm i' again
+- If you already have an existing 'www' dir, no other files will be affected
+
+### 03/02/2023
+
+- Fixed an async issue with detecting file paths
+- Added support for passing arguments from the shell
+- Added a project-language detection mechanic for automatically detecting the project's type
+
 ## Upfront warnings
 
 This library is super experimental, and definitely does *not* come with any guarantees.
@@ -29,6 +44,9 @@ These protections do not extended to read-only actions.
 
 Example: The repo will most likely block an attempt to write a file copy outside the
 HOME directory. The repo won't block reading the original source file for copying.
+
+As of (03/02/2023) the Rust compiler will now remove the original module directory (within node_modules)
+and then runs 'npm i'. This process preserves any manual changes to the 'www' server source.
 
 You won't find this repo on npm. Its not designed to be used like a 'black box.'
 
@@ -83,6 +101,10 @@ https://rustwasm.github.io/book/game-of-life/hello-world.html <br>
 https://formulae.brew.sh/formula/rust <br>
 https://formulae.brew.sh/formula/wasm-pack ( for Rust ) <br>
 https://formulae.brew.sh/formula/node ( for the Rust web server )
+
+If you run into an issue while following the wasm tutorial, where cago complains there's no 'generate'
+command, run this in your shell:
+cargo install cargo-generate
 
 ### How to use the package...
 
@@ -204,14 +226,6 @@ probably C, from the tutorials I looked at.
 
 I'm tempering my expectations for VM-driven languages which aren't already regularly ran in-
 browser.
-
-## Updates
-
-### 03/02/2023
-
-- Fixed an async issue with detecting file paths
-- Added support for passing arguments from the shell
-- Added a project-language detection mechanic for automatically detecting the project's type
 
 ----WORK IN PROGRESS----
 ----WORK IN PROGRESS----

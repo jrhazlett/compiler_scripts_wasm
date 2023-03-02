@@ -17,12 +17,8 @@ export default class helperPathsRust {
     /**
      * @param {string} argStringPathDirProject
      * */
-    static getStringNameForWasmPackage = ( argStringPathDirProject ) => {
-        return path
-            .basename( helperPaths.getArrayOfStringPathsInDirAndSubDirs( path.join( argStringPathDirProject, "pkg", ) )[ 0 ] )
-            .split( "." )[ 0 ]
-            .replace( "_", "-", )
-    }
+    static getStringNameForWasmPackage = ( argStringPathDirProject ) => path.basename( helperPaths.getArrayOfStringPathsInDirAndSubDirs( path.join( argStringPathDirProject, "pkg", ) )[ 0 ] ).split( "." )[ 0 ].replace( /_/g, "-", )
+
     /**
      * @param {string} argStringPathDirProject
      * */
@@ -33,6 +29,10 @@ export default class helperPathsRust {
      * @returns string
      * */
     static getStringPathFilePackageJson = ( argStringPathDirServer ) => { return path.join( argStringPathDirServer, "package.json", ) }
+
+    static getStringPathDirWasmPackageInNodeModules = ( argStringPathDirProject ) => {
+        return path.join( this.getStringPathDirServerWww( argStringPathDirProject ), "node_modules", this.getStringNameForWasmPackage( argStringPathDirProject ), )
+    }
     //
     // Public - raise
     //
