@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-node src/index.js
+node src/index.js "$1" "$2"
 
 
 

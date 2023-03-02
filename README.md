@@ -1,3 +1,8 @@
+----WORK IN PROGRESS----
+----WORK IN PROGRESS----
+----WORK IN PROGRESS----
+----WORK IN PROGRESS----
+
 # Compiler Scripts
 
 This script package's main purpose is to give the Rust and Go wasm compilation processes
@@ -26,6 +31,19 @@ Example: The repo will most likely block an attempt to write a file copy outside
 HOME directory. The repo won't block reading the original source file for copying.
 
 You won't find this repo on npm. Its not designed to be used like a 'black box.'
+
+## To run a compilation process from the shell...
+
+At the root level, you can run the script like this...
+
+sh run_server.sh <path to target directory> <optional name for language>
+node src/index.js <path to target directory> <optional name for language>
+
+If you don't provide the name for the target language, the script will attempt to identify the project's language
+by searching the project's root directory.
+
+For go: The script looks for main.go
+For rust: The script looks for Cargo.toml
 
 ## Now onto the package...
 
@@ -187,6 +205,18 @@ probably C, from the tutorials I looked at.
 I'm tempering my expectations for VM-driven languages which aren't already regularly ran in-
 browser.
 
+## Updates
+
+### 03/02/2023
+
+- Fixed an async issue with detecting file paths
+- Added support for passing arguments from the shell
+- Added a project-language detection mechanic for automatically detecting the project's type
+
+----WORK IN PROGRESS----
+----WORK IN PROGRESS----
+----WORK IN PROGRESS----
+----WORK IN PROGRESS----
 
 
 

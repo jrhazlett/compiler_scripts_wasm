@@ -43,7 +43,7 @@ export default class helperPathsRust {
         if ( fs.existsSync( argStringPathDirServerWww ) ) {
             console.log( `Error: argStringPathDirServerWww already exists.\n` )
             console.log( `argStringPathDirServerWww = ${argStringPathDirServerWww}\n` )
-            console.log( `fs.exists( argStringPathDirServerWww ) = ${fs.existsSync( argStringPathDirServerWww )}\n` )
+            console.log( `fs.existsSync( argStringPathDirServerWww ) = ${fs.existsSync( argStringPathDirServerWww )}\n` )
             process.exit( 1 )
         }
     }

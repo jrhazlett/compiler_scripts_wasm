@@ -13,7 +13,7 @@ export default class helperApp {
      * Call this at the end of the app to make sure it closes
      * */
     static exitApp = () => {
-        console.log( "SCRIPT COMPLETE" )
+        console.log( "\nSCRIPT COMPLETE" )
         process.exit( 0 )
     }
     //

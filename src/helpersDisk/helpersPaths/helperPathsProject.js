@@ -32,8 +32,6 @@ class HelperPathsProject {
     getStringPathDirProjectRoot = ( argStringPath = undefined ) => {
         let stringToReturn = argStringPath === undefined ? path.resolve( "" ) : argStringPath
         while (true) {
-            console.log( `stringToReturn = ${stringToReturn}\n` )
-
             if ( fs.lstatSync( stringToReturn ).isDirectory() ) {
                 //
                 // Return the first dir that contains 'package.json'

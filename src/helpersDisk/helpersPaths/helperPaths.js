@@ -19,9 +19,10 @@ export default class helperPaths {
         if ( !fs.lstatSync( argStringPathDir ).isDirectory() ) { return argStringPathDir }
         const arrayOfStringNames = fs.readdirSync( argStringPathDir )
         const arrayToReturn = new Array( arrayOfStringNames.length )
-        for ( let itemIndex = 0, intLength = arrayToReturn.length; itemIndex < intLength; itemIndex++ ) {
-            arrayToReturn[ itemIndex ] = path.join( argStringPathDir, arrayOfStringNames[ itemIndex ] )
-        }
+
+        let itemIndex = -1
+        const intLength = arrayToReturn.length
+        while ( ++itemIndex < intLength ) { arrayToReturn[ itemIndex ] = path.join( argStringPathDir, arrayOfStringNames[ itemIndex ] ) }
         return arrayToReturn
     }
 
@@ -39,7 +40,10 @@ export default class helperPaths {
         //
         const arrayOfStringNames = fs.readdirSync( argStringPathDir )
         const arrayStackToProcess = new Array( arrayOfStringNames.length )
-        for ( let itemIndex = 0, intLength = arrayOfStringNames.length; itemIndex < intLength; itemIndex++ ) {
+
+        let itemIndex = -1
+        const intLength = arrayOfStringNames.length
+        while ( ++itemIndex < intLength ) {
             arrayStackToProcess[ itemIndex ] = path.join( argStringPathDir, arrayOfStringNames[ itemIndex ], )
         }
         //
@@ -63,7 +67,9 @@ export default class helperPaths {
                 //
                 // Add compounded paths to the stack
                 //
-                for ( let itemIndex = 0, intLength = itemArrayOfStringNames.length; itemIndex < intLength; itemIndex++ ) {
+                let itemIndex = -1
+                const intLength = itemArrayOfStringNames.length
+                while ( ++itemIndex < intLength ) {
                     arrayStackToProcess.push( path.join( itemStringPath, itemArrayOfStringNames[ itemIndex ], ) )
                 }
             }
@@ -75,7 +81,7 @@ export default class helperPaths {
      * @param {string} argStringPath
      * @returns string
      * */
-    static getStringNameWithExt = ( argStringPath ) => { return path.basename( argStringPath ) }
+    static getStringNameWithExt = ( argStringPath ) => path.basename( argStringPath )
 
     /**
      * @param {string} argStringPath

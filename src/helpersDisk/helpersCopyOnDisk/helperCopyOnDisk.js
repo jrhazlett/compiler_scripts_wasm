@@ -67,7 +67,9 @@ export default class helperCopyOnDisk {
         //
         const arrayOfStringNames = fs.readdirSync( argStringPathAbsoluteOrig )
         const arrayStackToProcess = new Array( arrayOfStringNames.length )
-        for ( let itemIndex = 0, intLength = arrayOfStringNames.length; itemIndex < intLength; itemIndex++ ) {
+        let itemIndex = -1
+        const intLength = arrayOfStringNames.length
+        while ( ++itemIndex < intLength ) {
             arrayStackToProcess[ itemIndex ] = path.join( argStringPathAbsoluteOrig, arrayOfStringNames[ itemIndex ], )
         }
         //
@@ -104,7 +106,9 @@ export default class helperCopyOnDisk {
                     // Prep next iteration
                     //
                     const arrayOfStringNamesInDirOrig = fs.readdirSync( itemStringPathAbsoluteOrig )
-                    for ( let itemIndex = 0, intLength = arrayOfStringNamesInDirOrig.length; itemIndex < intLength; itemIndex++ ) {
+                    let itemIndex = -1
+                    const intLength = arrayOfStringNamesInDirOrig.length
+                    while ( ++itemIndex < intLength ) {
                         //
                         // Create the next absolute path and add it to the stack to process
                         //
