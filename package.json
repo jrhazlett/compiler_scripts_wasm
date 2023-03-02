@@ -1,11 +1,11 @@
 {
-  "name": "compiler_scripts_wasm",
-  "version": "1.0.0",
   "author": "James Hazlett",
+  "name": "compiler_scripts_wasm",
   "description": "",
-  "main": "src/index.js",
+  "version": "1.0.0",
   "keywords": [],
   "license": "MIT",
+  "main": "src/index.js",
   "type": "module",
   "dependencies": {
     "pretty_printer_for_humans": "^1.2.0"
