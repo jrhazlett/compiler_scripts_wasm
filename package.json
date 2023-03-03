@@ -8,6 +8,7 @@
   "main": "src/index.js",
   "type": "module",
   "dependencies": {
+    "is-docker": "^3.0.0",
     "pretty_printer_for_humans": "^1.2.0",
     "rimraf": "^4.1.3"
   },

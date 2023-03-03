@@ -13,6 +13,10 @@ quirks warranting the scripts.
 
 ## Updates
 
+### 03/03/2023
+
+- Added dockerization option to build process
+
 ### 03/02/2023 3rd update
 
 - Put file removal code in a protective wrapper which will end the app if it receives a path outside the home
@@ -57,10 +61,12 @@ You won't find this repo on npm. Its not designed to be used like a 'black box.'
 
 ## To run a compilation process from the shell...
 
+### Running on host
+
 At the root level, you can run the script like this...
 
-sh run_server.sh <path to target directory> <optional name for language>
-node src/index.js <path to target directory> <optional name for language>
+sh run_server.sh (path to target directory) (optional name for language)
+node src/index.js (path to target directory) (optional name for language)
 
 If you don't provide the name for the target language, the script will attempt to identify the project's language
 by searching the project's root directory.
@@ -68,7 +74,30 @@ by searching the project's root directory.
 For go: The script looks for main.go
 For rust: The script looks for Cargo.toml
 
-## Now onto the package...
+### Running in container (currently setup for only Rust)
+
+sh run_container.sh (path to target directory) (optional name for language)
+
+Generally, the same rules for 'running on host' also apply here, so expect the same behavior.
+
+Note: The Rust compilation process is noticeably longer when executing the process.
+
+#### How it works...
+
+- run_container.sh receives the required file path and the optional language name
+- The container build kicks off
+- The container build process starts with the 'node' image as its base, and then adds Rust
+- For node packages, to speed up the container process with subsequent builds, the container 'caches' node packages
+by mounting ./node_modules_docker and installs the relevant packages there. Each subsequent build simply re-uses
+that mount (read and/or update) rather than do clean installs every time.
+- The container mounts the target project's directory in '/root/target'
+
+#### Mounted directories...
+- node_modules_docker
+- src
+- The target wasm project
+
+## Now onto the node package...
 
 ### Main features
 
