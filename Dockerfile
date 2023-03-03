@@ -5,6 +5,8 @@ FROM node
 ENV PATH="/root/.cargo/bin:${PATH}"
 ENV PATH_DIR_PROJ_ROOT=/root/compiler_scripts_wasm
 ENV PATH_DIR_TARGET=/root/target
+
+ENV VER_GO=1.20.1
 #
 # Setup Rust
 #
@@ -20,10 +22,9 @@ RUN apt-get update \
     && \
     curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh \
     && \
-    wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz \
+    wget https://go.dev/dl/go$VER_GO.linux-amd64.tar.gz \
     && \
-    tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz
-
+    tar -C /usr/local/ -xzf go$VER_GO.linux-amd64.tar.gz
 #
 # Setup project
 #

@@ -87,6 +87,8 @@ Generally, the same rules for 'running on host' also apply here, so expect the s
 
 Note: The Rust compilation process is noticeably longer when executing the process.
 
+Note: To change the Go version edit the variable: VER_GO in ./Dockerfile
+
 #### How it works...
 
 - run_container.sh receives the required file path and the optional language name
