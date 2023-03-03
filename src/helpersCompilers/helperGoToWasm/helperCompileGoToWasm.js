@@ -4,7 +4,7 @@ GOOS=js GOARCH=wasm go build -o main.wasm
 cp "$(go env GOROOT)/misc/wasm/wasm_exec.js" .
 
 
-    Command which works in this context...
+Command which works in this context...
 GOOS=js GOARCH=wasm /usr/local/Cellar/go/1.19.1/libexec/bin/go build -o main.wasm
 
 
@@ -17,7 +17,7 @@ How the compilation process works...
 - Move the resulting "main.wasm" from the project director to the destination
 
 This has two benefits:
-    - It keeps the actual source area clean
+- It keeps the actual source area clean
 - It consolidates the results into a single directory
 Why Go doesn't do this by default, or have a clear way to set the compilation output dir directly, is a mystery
 */

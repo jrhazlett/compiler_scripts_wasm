@@ -18,7 +18,11 @@ RUN apt-get update \
     && \
     curl https://sh.rustup.rs -sSf | bash -s -- -y \
     && \
-    curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+    curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh \
+    && \
+    wget https://dl.google.com/go/go1.13.5.linux-amd64.tar.gz \
+    && \
+    tar -C /usr/local/ -xzf go1.13.5.linux-amd64.tar.gz
 
 #
 # Setup project

@@ -1,8 +1,13 @@
 //
 // Libraries - downloaded
 //
-import path from "path";
+import isDocker from "is-docker"
+import path from "path"
+//
+// Libraries - custom
+//
 import helperPathsProject from "../../../helpersDisk/helpersPaths/helperPathsProject.js";
+import helperPaths from "../../../helpersDisk/helpersPaths/helperPaths.js";
 //
 // Class
 //
@@ -35,7 +40,7 @@ class HelperPathsGo {
         // The path is...
         // "/usr/local/Cellar/go/1.19.1/libexec/misc/wasm/wasm_exec.js"
         //
-        return path.join( helperPathsGo.fieldStringPathDirGoroot, "misc/wasm", "wasm_exec.js", )
+        return path.join( helperPathsGo.fieldStringPathDirGoRoot, "misc/wasm", "wasm_exec.js", )
     }
 
     /**
@@ -50,14 +55,42 @@ class HelperPathsGo {
 
         this.fieldStringNameFileMainWasm = "main.wasm"
 
-        this.fieldStringVersionForGo = "1.19.1"
+        let stringPathDirRootGo = this._getStringPathDirGo()
 
-        this.fieldStringPathDirGoroot = path.join( "/usr/local/Cellar/go", this.fieldStringVersionForGo, "libexec" )
+        //this.fieldStringPathDirGoRoot = path.join( stringPathDirRootGo, "libexec" )
+        //this.fieldStringPathDirGoRoot = this._getStringPathDirGoRoot( stringPathDirRootGo )
+        this.fieldStringPathDirGoRoot = this._getStringPathDirGo()
 
-        this.fieldStringPathFileBinaryGo = path.join( "/usr/local/Cellar/go", this.fieldStringVersionForGo, "libexec/bin/go", )
+        //this.fieldStringPathFileBinaryGo = path.join( stringPathDirRootGo, "libexec/bin/go", )
+        this.fieldStringPathFileBinaryGo = path.join( this.fieldStringPathDirGoRoot, "bin/go", )
 
         // Don't delete this yet
         this.fieldStringPathDirGopath = process.env.GOPATH
+    }
+
+    /**
+     * @returns {string}
+     * */
+    _getStringPathDirGo = () => {
+        //
+        // Get base path based on whether or not we're running inside a container
+        //
+        let stringToReturn = isDocker() ? "/usr/local" : "/usr/local/Cellar"
+        stringToReturn = path.join( stringToReturn, "go", ).toString()
+        //
+        // If the return string contains 'Cellar' then we need to get the latest go version
+        //
+        if ( stringToReturn.includes( "Cellar" ) ) {
+            const arrayOfStringPathsInDir = helperPaths.getArrayOfStringPathsInDir( stringToReturn )
+            if ( arrayOfStringPathsInDir.length === 0 ) {
+                throw new Error([
+                    `Dir: '${stringToReturn}' has no sub dirs.`,
+                    `arrayOfStringPathsInDir.length = ${arrayOfStringPathsInDir.length}`,
+                ].reduce((itemStringPrev, itemString) => `${itemStringPrev}\n${itemString}`))
+            }
+            stringToReturn = path.join( arrayOfStringPathsInDir[ arrayOfStringPathsInDir.length - 1 ], "libexec", )
+        }
+        return stringToReturn
     }
 }
 //

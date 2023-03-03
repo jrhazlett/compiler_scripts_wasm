@@ -13,6 +13,11 @@ quirks warranting the scripts.
 
 ## Updates
 
+### 03/03/2023 part 2
+
+- Added Go support
+- Removed hard-coded version for Go in Cellar directory
+
 ### 03/03/2023
 
 - Added dockerization option to build process
@@ -74,7 +79,7 @@ by searching the project's root directory.
 For go: The script looks for main.go
 For rust: The script looks for Cargo.toml
 
-### Running in container (currently setup for only Rust)
+### Running in container
 
 sh run_container.sh (path to target directory) (optional name for language)
 

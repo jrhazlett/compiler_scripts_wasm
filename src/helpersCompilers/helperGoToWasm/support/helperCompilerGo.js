@@ -27,10 +27,19 @@ export default class helperCompilerGo {
                 helperPaths.temporarilySetCwd(
                     argStringPathDirProject,
                     () => {
+
+                        const stringCommand = helperStrings.getStringByCombiningArray( [
+                            helperStrings.getStringByCombiningArray( [ "GOOS=", "js", ] ),
+                            helperStrings.getStringByCombiningArray( [ "GOARCH=", "wasm", ] ),
+                            helperPathsGo.fieldStringPathFileBinaryGo,
+                            "build",
+                            helperStrings.getStringByCombiningArray( [ "-o ", helperPathsGo.fieldStringNameFileMainWasm, ] ),
+                        ], " ", )
+
                         //
                         // Compile app
                         //
-                        helperShell.runShellCmd( helperCompilerGo._getStringCmd() )
+                        helperShell.runShellCmd( stringCommand )
                         //
                         // Copy wasm_exec.js to output dir
                         // Reminder: Research didn't really turn up a way to set the output dir directly in the shell cmd
@@ -44,20 +53,6 @@ export default class helperCompilerGo {
                 )
             },
         )
-    }
-
-    /**
-     * @returns string
-     * */
-    static _getStringCmd = () => {
-
-        return helperStrings.getStringByCombiningArray( [
-            helperStrings.getStringByCombiningArray( [ "GOOS=", "js", ] ),
-            helperStrings.getStringByCombiningArray( [ "GOARCH=", "wasm", ] ),
-            helperPathsGo.fieldStringPathFileBinaryGo,
-            "build",
-            helperStrings.getStringByCombiningArray( [ "-o ", helperPathsGo.fieldStringNameFileMainWasm, ] ),
-        ], " ", )
     }
 }
 
